@@ -26,7 +26,7 @@ with open(filename, 'r') as f:
     appartments_list = json.load(f)
     with open('processed_list.csv', 'w', newline='') as csvfile:
         datafile = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        datafile.writerow(['City','Distance to city centre (km)', 'Area of room (m2)','Number of rooms','Price (euro)'])
+        datafile.writerow(['City','Distance to city centre (km)', 'Area of room (m2)','Number of rooms','Price (euro)','URL'])
         i = 0
         for appartment in appartments_list:
             i += 1
@@ -34,6 +34,6 @@ with open(filename, 'r') as f:
             coord1 = city_centre[appartment['city']]
             coord2 = g.latlng
             distance = round(geopy.distance.vincenty(coord1, coord2).km, 2)
-            print("Writing to file", i, "of", len(appartments_list), ">>>>>>", [appartment['city'], distance, appartment['size'], appartment['rooms'], appartment['price']])
-            datafile.writerow([appartment['city'], distance, appartment['size'], appartment['rooms'], appartment['price']])
+            print("Writing to file", i, "of", len(appartments_list), ">>>>>>", [appartment['city'], distance, appartment['size'], appartment['rooms'], appartment['price'], appartment['url']])
+            datafile.writerow([appartment['city'], distance, appartment['size'], appartment['rooms'], appartment['price'], appartment['url']])
         
